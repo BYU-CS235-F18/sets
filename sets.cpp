@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
   testSetUniqueValues();
 
   // Test find speeds
-  testFindSpeeds();
+  //testFindSpeeds();
 
   // Read text file into set of words
   string filename = "harry_potter_book_1.txt"; // Default if no arg passed in
