@@ -14,14 +14,14 @@ using namespace std;
  */
 void printMap(map<string, int> stringIntMap, ostream& os = cout)
 {
-  os << "Map size: " << stringIntMap.size() << endl;
+	os << "Map size: " << stringIntMap.size() << endl;
 
-  // Iterate over all elements of a map
-  map<string, int>::iterator it;
-  for(it = stringIntMap.begin(); it != stringIntMap.end(); ++it)
-  {
-    os << it->first << " => " << it->second << endl;
-  }
+	// Iterate over all elements of a map
+	map<string, int>::iterator it;
+	for(it = stringIntMap.begin(); it != stringIntMap.end(); ++it)
+	{
+		os << it->first << " => " << it->second << endl;
+	}
 }
 
 /*
@@ -31,58 +31,58 @@ void printMap(map<string, int> stringIntMap, ostream& os = cout)
  */
 map<string, int> getWordCountMap(ifstream& ifs)
 {
-  map<string, int> word_map;
-  string line;
-  while(getline(ifs, line)) // Read each line from file
-  {
-    string word = "";
-    string::iterator it;
-    for(it=line.begin(); it != line.end(); ++it)
-    {
-      char c = *it;
-      // End word when these characters are reached
-      if(c == ' ' || c == '\n' || c == '-')
-      {
-        if(word != "")
+	map<string, int> word_map;
+	string line;
+	while(getline(ifs, line)) // Read each line from file
+	{
+		string word = "";
+		string::iterator it;
+		for(it=line.begin(); it != line.end(); ++it)
+		{
+			char c = *it;
+			// End word when these characters are reached
+			if(c == ' ' || c == '\n' || c == '-')
+			{
+				if(word != "")
 				{
 					if(word_map.find(word) == word_map.end())
 						word_map.insert(make_pair(word, 1));
 					else
 						word_map[word]++;
 				}
-        word = "";
-      }
-      // If the next character is alphabetical, add it to word
-      else if(isalpha(c))
-      {
-        word += c;
-      }
-    }
-    // At the end of a line, add the last word
-    if(word != "")
+				word = "";
+			}
+			// If the next character is alphabetical, add it to word
+			else if(isalpha(c))
+			{
+				word += c;
+			}
+		}
+		// At the end of a line, add the last word
+		if(word != "")
 		{
 			if(word_map.find(word) == word_map.end())
 				word_map.insert(make_pair(word, 1));
 			else
 				word_map[word]++;
 		}
-  }
-  return word_map;
+	}
+	return word_map;
 }
 
 int main(int argc, char* argv[])
 {
-  // Read text file into map of words => word count
-  string filename = "harry_potter_book_1.txt"; // Default if no arg passed in
-  if(argc > 1)
-    filename = argv[1];
-  ifstream fileIn(filename);
-  map<string, int> wordCountMap = getWordCountMap(fileIn);
+	// Read text file into map of words => word count
+	string filename = "harry_potter_book_1.txt"; // Default if no arg passed in
+	if(argc > 1)
+		filename = argv[1];
+	ifstream fileIn(filename);
+	map<string, int> wordCountMap = getWordCountMap(fileIn);
 	fileIn.close();
 
 	// Print to text file
-  string mapFilename = "word_map_" + filename;
-  ofstream fileOut(mapFilename);
+	string mapFilename = "word_map_" + filename;
+	ofstream fileOut(mapFilename);
 	printMap(wordCountMap); // This will print it to cout
 	printMap(wordCountMap, fileOut); // This will print it to output file
 	fileOut.close();
