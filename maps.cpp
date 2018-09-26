@@ -43,13 +43,17 @@ map<string, int> getWordCountMap(ifstream& ifs)
 			// End word when these characters are reached
 			if(c == ' ' || c == '\n' || c == '-')
 			{
+				// If word is not empty, modify map
 				if(word != "")
 				{
+					// If word not found in map, make new entry with count of 1
 					if(word_map.find(word) == word_map.end())
 						word_map.insert(make_pair(word, 1));
+					// If word found in map, increment count
 					else
 						word_map[word]++;
 				}
+				// Clear word
 				word = "";
 			}
 			// If the next character is alphabetical, add it to word
@@ -57,14 +61,6 @@ map<string, int> getWordCountMap(ifstream& ifs)
 			{
 				word += c;
 			}
-		}
-		// At the end of a line, add the last word
-		if(word != "")
-		{
-			if(word_map.find(word) == word_map.end())
-				word_map.insert(make_pair(word, 1));
-			else
-				word_map[word]++;
 		}
 	}
 	return word_map;
